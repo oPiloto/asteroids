@@ -1,0 +1,10 @@
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <cmath>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <stack>
+#include <vector>
