@@ -6,7 +6,7 @@ namespace aste {
     class Asteroid : public Entity {
     public:
         Asteroid(float asteroid_scale, sf::Color asteroid_color = sf::Color::White);
-        ~Asteroid() = default;
+        ~Asteroid();
 
         void input(sf::RenderWindow &window);
         void update(const float &delta_time);
@@ -23,13 +23,13 @@ namespace aste {
         std::vector<sf::FloatRect> get_asteroids_bounds();
 
     private:
-        void create_small_asteroids(Particle particle);
-        void explosion(Particle particle);
+        void create_small_asteroids(Particle &particle);
+        void explosion(Particle &particle);
 
     private:
-        std::shared_ptr<ParticleSystem> m_asteroid;
-        std::shared_ptr<ParticleSystem> m_small_asteroid;
-        std::shared_ptr<ParticleSystem> m_explosion;
+        ParticleSystem *m_asteroid;
+        ParticleSystem *m_small_asteroid;
+        ParticleSystem *m_explosion;
 
         sf::Vector2f m_window_size;
         bool m_destroyed;

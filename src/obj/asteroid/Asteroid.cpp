@@ -3,9 +3,15 @@
 namespace aste {
     Asteroid::Asteroid(float asteroid_scale, sf::Color asteroid_color) :
         m_time(0.f), m_destroyed(false) {
-        m_asteroid = std::make_shared<ParticleSystem>(asteroid_scale, asteroid_color);
-        m_small_asteroid = std::make_shared<ParticleSystem>(asteroid_scale - asteroid_scale / 3, asteroid_color);
-        m_explosion = std::make_shared<ParticleSystem>(0.1f, asteroid_color);
+        m_asteroid = new ParticleSystem(asteroid_scale, asteroid_color);
+        m_small_asteroid = new ParticleSystem(asteroid_scale - asteroid_scale / 3, asteroid_color);
+        m_explosion = new ParticleSystem(0.1f, asteroid_color);
+    }
+
+    Asteroid::~Asteroid() {
+        delete m_asteroid;
+        delete m_small_asteroid;
+        delete m_explosion;
     }
 
     void Asteroid::input(sf::RenderWindow &window) {
@@ -119,15 +125,15 @@ namespace aste {
         return bounds;
     }
 
-    void Asteroid::create_small_asteroids(Particle particle) {
+    void Asteroid::create_small_asteroids(Particle &particle) {
         m_small_asteroid->set_position(particle.get_position());
         m_small_asteroid->set_velocity(particle.get_velocity());
         m_small_asteroid->set_angle(particle.get_angle());
         for (std::size_t i = 0; i < 1 + std::rand() % 3; i++)
-            m_small_asteroid->create_particles(60.f, 50.f, particle.get_acceleration() + 20.f, true);
+            m_small_asteroid->create_particles(60.f, 50.f, particle.get_acceleration(), true);
     }
 
-    void Asteroid::explosion(Particle particle) {
+    void Asteroid::explosion(Particle &particle) {
         m_explosion->set_position(particle.get_position());
         m_explosion->set_velocity(-particle.get_velocity());
         m_explosion->set_angle(particle.get_angle());
