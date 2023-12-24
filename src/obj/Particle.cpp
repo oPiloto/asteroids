@@ -12,9 +12,10 @@ namespace aste {
         }
         m_shape.setPosition(position);
 
-        m_position  = position;
-        m_life_time = life_time;
-        m_angle     = angle;
+        m_position     = position;
+        m_life_time    = life_time;
+        m_angle        = angle;
+        m_acceleration = acceleration;
         m_velocity = velocity + sf::Vector2f(std::cos(angle), std::sin(angle)) * acceleration;
     }
 
