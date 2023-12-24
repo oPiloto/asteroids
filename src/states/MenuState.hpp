@@ -7,7 +7,7 @@
 namespace aste {
     class MenuState : public State {
     public:
-        MenuState(StateStack &stack, std::shared_ptr<sf::RenderWindow> window);
+        MenuState(StateStack &stack, sf::RenderWindow &window);
         ~MenuState() = default;
 
         void input();

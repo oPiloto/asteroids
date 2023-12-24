@@ -1,21 +1,28 @@
 #include "State.hpp"
 
 namespace aste {
-    void StateStack::push_state(std::shared_ptr<State> state) {
-        m_states.push(state);
+    State::State(StateStack &stack, sf::RenderWindow &window) :
+        m_stack(stack), m_window(window) {}
+
+    StateStack::~StateStack() {
+        while (!m_states.empty()) {
+            delete m_states.top();
+            m_states.pop();
+        }
     }
 
+    void StateStack::push_state(State *state) { m_states.push(state); }
+
     void StateStack::pop_state() {
-        if (!m_states.empty())
+        if (!m_states.empty()) {
+            delete m_states.top();
             m_states.pop();
+        }
     }
 
     bool StateStack::empty() { return m_states.empty(); }
 
     State *StateStack::top_state() {
-        return m_states.empty() ? nullptr : m_states.top().get();
+        return m_states.empty() ? nullptr : m_states.top();
     }
-
-    State::State(StateStack &stack, std::shared_ptr<sf::RenderWindow> window) :
-        m_stack(stack), m_window(window) {}
 } // namespace aste

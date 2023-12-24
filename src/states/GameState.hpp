@@ -8,8 +8,8 @@
 namespace aste {
     class GameState : public State {
     public:
-        GameState(StateStack &stack, std::shared_ptr<sf::RenderWindow> window);
-        ~GameState() = default;
+        GameState(StateStack &stack, sf::RenderWindow &window);
+        ~GameState();
 
         void input();
         void update(const float &delta_time);
@@ -33,6 +33,6 @@ namespace aste {
         std::unique_ptr<Ship> m_ship;
 
         // Asteroids
-        std::unique_ptr<Asteroid> m_asteroid;
+        Asteroid *m_asteroid;
     };
 } // namespace aste

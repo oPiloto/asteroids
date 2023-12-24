@@ -20,7 +20,6 @@ namespace aste {
         std::shared_ptr<sf::RenderWindow> m_window;
         sf::Event m_event;
         StateStack m_state_stack;
-        float m_delta_time;
-        sf::Clock m_dt_clock;
+        sf::Clock m_clock;
     };
 } // namespace aste

@@ -7,7 +7,7 @@ namespace aste {
         m_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000, 950), window_title, sf::Style::Close, settings);
         m_window->setFramerateLimit(120);
 
-        m_state_stack.push_state(std::make_unique<MenuState>(m_state_stack, m_window));
+        m_state_stack.push_state(new MenuState(m_state_stack, *m_window));
     }
 
     Game::~Game() {
@@ -27,10 +27,8 @@ namespace aste {
     }
 
     void Game::update() {
-        m_delta_time = m_dt_clock.restart().asSeconds();
-
         if (!m_state_stack.empty())
-            m_state_stack.top_state()->update(m_delta_time);
+            m_state_stack.top_state()->update(m_clock.restart().asSeconds());
     }
 
     void Game::render() {
